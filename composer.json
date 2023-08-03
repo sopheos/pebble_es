@@ -1,6 +1,7 @@
 {
     "name": "sopheos/pebble_es",
     "description": "Request / Response library",
+    "license": "MIT",
     "require": {
         "php": ">=8.1.0",
         "guzzlehttp/guzzle": "^7.0"
