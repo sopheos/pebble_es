@@ -73,6 +73,14 @@ class Request
         return Utils::jsonDecode($content);
     }
 
+    public function head(string $url): int
+    {
+        $params = [RequestOptions::HTTP_ERRORS => false];
+        $this->last_request = [];
+        $res = $this->guzzle->request('HEAD', $url, $params);
+        return $res->getStatusCode();
+    }
+
     /**
      * @param string $url
      * @param array $data
