@@ -2,6 +2,7 @@
 
 namespace Pebble\ES;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Utils;
@@ -186,10 +187,18 @@ class Request
             $err = 'POST ' . $url . '/_bulk' . PHP_EOL;
             $err .= "Status : " . $status . PHP_EOL;
             $err .= $content . PHP_EOL;
-            trigger_error($err);
+            throw new Exception($err);
         }
 
-        return Utils::jsonDecode($content);
+        $response = Utils::jsonDecode($content);
+
+        if ($response->errors ?? null) {
+            $err = 'POST ' . $url . '/_bulk' . PHP_EOL;
+            $err .= $content . PHP_EOL;
+            throw new Exception($err);
+        }
+
+        return $response;
     }
 
     // -------------------------------------------------------------------------
