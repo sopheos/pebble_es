@@ -160,22 +160,16 @@ class Request
         return $this->request('POST', '_bulk', $params);
     }
 
-    /**
-     * @param AbstractRaw $query
-     */
-    public function updateByQuery(AbstractRaw $query, bool $proceedOnConflicts = true): Response
+    public function updateByQuery(array $data, bool $proceedOnConflicts = true): Response
     {
         $conflicts = $proceedOnConflicts ? '?conflicts=proceed' : '';
-        return $this->jsonRequest('POST', $this->index . '/_update_by_query' . $conflicts, $query->raw());
+        return $this->jsonRequest('POST', $this->index . '/_update_by_query' . $conflicts, $data);
     }
 
-    /**
-     * @param AbstractRaw $query
-     */
-    public function deleteByQuery(AbstractRaw $query, bool $proceedOnConflicts = true): Response
+    public function deleteByQuery(array $data, bool $proceedOnConflicts = true): Response
     {
         $conflicts = $proceedOnConflicts ? '?conflicts=proceed' : '';
-        return $this->jsonRequest('POST', $this->index . '/_delete_by_query' . $conflicts, $query->raw());
+        return $this->jsonRequest('POST', $this->index . '/_delete_by_query' . $conflicts, $data);
     }
 
     // -------------------------------------------------------------------------
