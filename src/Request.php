@@ -34,6 +34,11 @@ class Request
     // Tools
     // -------------------------------------------------------------------------
 
+    public function getIndex(): string
+    {
+        return $this->index;
+    }
+
     public function setIndex(string $index): static
     {
         $this->index = $index;
