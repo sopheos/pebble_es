@@ -49,7 +49,7 @@ class Request
     // Index
     // -------------------------------------------------------------------------
 
-    public function hasIndex()
+    public function hasIndex(): bool
     {
         return $this->jsonRequest('HEAD', $this->index)->status() === 200;
     }
@@ -69,7 +69,7 @@ class Request
         return $this->jsonRequest('PUT', $this->index, $data);
     }
 
-    public function deleteIndex()
+    public function deleteIndex(): Response
     {
         return $this->jsonRequest('DELETE', $this->index);
     }
