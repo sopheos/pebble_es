@@ -13,7 +13,7 @@ use GuzzleHttp\RequestOptions;
 class Request
 {
     protected Client $guzzle;
-    protected string $index;
+    protected string $index = '';
 
     protected array $last_request = [];
 
