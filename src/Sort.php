@@ -28,7 +28,7 @@ class Sort extends AbstractRaw
      * @param string $mode
      * @return static
      */
-    public function asc(string $field, string $mode = null): static
+    public function asc(string $field, ?string $mode = null): static
     {
         return $this->add($field, 'asc', $mode);
     }
@@ -38,7 +38,7 @@ class Sort extends AbstractRaw
      * @param string $mode
      * @return static
      */
-    public function desc(string $field, string $mode = null): static
+    public function desc(string $field, ?string $mode = null): static
     {
         return $this->add($field, 'desc', $mode);
     }
