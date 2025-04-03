@@ -19,6 +19,11 @@ class Response
         return $this->status;
     }
 
+    public function isSuccess(): bool
+    {
+        return $this->status >= 200 && $this->status <= 208;
+    }
+
     public function body(): string
     {
         return $this->content;
@@ -67,6 +72,15 @@ class Response
     {
         $json = $this->json();
         return $json['hits']['hits'] ?? [];
+    }
+
+    public function sources(): array
+    {
+        $sources = [];
+        foreach ($this->hits() as $hit) {
+            $sources[$hit['_id']] = $hit['_source'] ?? null;
+        }
+        return $sources;
     }
 
     public function aggs(...$names)
