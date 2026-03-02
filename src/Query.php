@@ -71,14 +71,19 @@ class Query extends AbstractRaw
     }
 
     /**
-     * Undocumented function
-     *
      * @param AbstractRaw $suggest
      * @return static
      */
     public function suggest(AbstractRaw $suggest): static
     {
         return $this->set('suggest', $suggest);
+    }
+
+    public function script(AbstractRaw $script): static
+    {
+        $script = $script->raw();
+        $script = $script['script'] ?? $script;
+        return $this->set('script', $script);
     }
 
     /**

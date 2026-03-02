@@ -4,23 +4,34 @@ namespace Pebble\ES;
 
 class Script extends AbstractFilter
 {
-    private string $script;
+    const PAINLESS = 'painless';
+    const EXPRESSION = 'expression';
+    const MUSTACHE = 'mustache';
 
-    /**
-     * @param string $script
-     */
-    public function __construct(string $script)
+    private string $lang = self::PAINLESS;
+    private string $source = "";
+    private array $params = [];
+
+    public function __construct(string $source)
     {
-        $this->script = $script;
+        $this->source = $source;
     }
 
-    /**
-     * @param string $script
-     * @return static
-     */
-    public static function make(string $script): static
+    public static function make(string $source): static
     {
-        return new static($script);
+        return new static($source);
+    }
+
+    public function lang(string $lang): static
+    {
+        $this->lang = $lang;
+        return $this;
+    }
+
+    public function params(array $params = []): static
+    {
+        $this->params = $params;
+        return $this;
     }
 
     /**
@@ -28,12 +39,15 @@ class Script extends AbstractFilter
      */
     public function raw(): array
     {
-        return [
-            "script" => [
-                "script" => [
-                    "source" => $this->script
-                ]
-            ]
+        $data = [
+            "lang" => $this->lang,
+            "source" => $this->source,
         ];
+
+        if ($this->params) {
+            $data['params'] = $this->params;
+        }
+
+        return ["script" => $data];
     }
 }
